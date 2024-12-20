@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class RoomController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+      $data=Room::latest()->paginate();
+      return Inertia::render('Room/index',[
+        'rooms'=>$data,
+      ]);
     }
 
     /**
@@ -28,7 +32,18 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validateData=$request->validate([
+            'name'=>'required|string',
+            'capacity'=>'required|integer',
+            'features'=>'nullable|array',
+            'features.*'=>'string',
+            'location'=>'string|required',
+
+        ]);
+
+        Room::create($validateData);
+        return to_route('room.index');
     }
 
     /**
@@ -36,7 +51,9 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return Inertia::render('Room/show',[
+            'room'=>$room
+        ]);
     }
 
     /**
@@ -44,7 +61,9 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        //
+        return Inertia::render('Room/edit',[
+            'room'=>$room
+        ]);
     }
 
     /**
@@ -52,7 +71,16 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        //
+        $validateData=$request->validate([
+            'name'=>'string',
+            'capacity'=>'integer',
+            'features'=>'nullable|array',
+            'features.*'=>'string',
+            'location'=>'string',
+
+        ]);
+        $room->updateOrCreate($validateData);
+        return to_route('booking.index');
     }
 
     /**
@@ -60,6 +88,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $room->delete();
+        return to_route('booking.index');
     }
 }
