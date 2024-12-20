@@ -1,22 +1,16 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { PropsWithChildren, ReactNode, useState } from 'react';
+import { Link } from '@inertiajs/react';
+import React, { useState } from 'react';
+import NavLink from './NavLink';
+import ApplicationLogo from './ApplicationLogo';
+import Dropdown from './Dropdown';
+import ResponsiveNavLink from './ResponsiveNavLink';
+import { User } from '@/types';
 
-export default function Authenticated({
-    header,
-    children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
-    const user = usePage().props.auth.user;
-
+const Navbar = ({user}:{user:User}) => {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
+        <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
@@ -32,6 +26,18 @@ export default function Authenticated({
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    href={route('room.index')}
+                                    active={route().current('room.index')}
+                                >
+                                    Rooms
+                                </NavLink>
+                                <NavLink
+                                    href={route('booking.index')}
+                                    active={route().current('booking.index')}
+                                >
+                                   Bookings
                                 </NavLink>
                             </div>
                         </div>
@@ -137,6 +143,18 @@ export default function Authenticated({
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('room.index')}
+                            active={route().current('room.index')}
+                        >
+                           Rooms
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('booking.index')}
+                            active={route().current('booking.index')}
+                        >
+                           Bookings
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
@@ -164,16 +182,7 @@ export default function Authenticated({
                     </div>
                 </div>
             </nav>
-
-            {header && (
-                <header className="bg-white shadow dark:bg-gray-800">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
-
-            <main>{children}</main>
-        </div>
     );
-}
+};
+
+export default Navbar;

@@ -24,7 +24,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Room/create');
     }
 
     /**
@@ -32,7 +32,7 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-
+// dd($request);
         $validateData=$request->validate([
             'name'=>'required|string',
             'capacity'=>'required|integer',

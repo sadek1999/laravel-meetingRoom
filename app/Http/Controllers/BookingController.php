@@ -16,7 +16,7 @@ class BookingController extends Controller
      public function index()
      {
          $data = Booking::latest()->paginate();
-         return Inertia::render('Booing/index', [
+         return Inertia::render('Booking/index', [
              'bookings' => $data
          ]);
      }
@@ -26,7 +26,7 @@ class BookingController extends Controller
       */
      public function create()
      {
-         //
+         return Inertia::render('Booking/create');
      }
 
      /**
