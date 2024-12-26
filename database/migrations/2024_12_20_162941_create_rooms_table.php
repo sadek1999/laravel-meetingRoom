@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('capacity');
-            $table->json('features');
+            $table->json('features')->nullable();
             $table->string('location');
 
             $table->timestamps();

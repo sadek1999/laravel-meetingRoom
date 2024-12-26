@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 import React from 'react';
 
 const index = ({bookings}:{bookings:any}) => {
-    // console.log(bookings)
+    console.log(bookings)
     return (
         <AuthLayout>
 
