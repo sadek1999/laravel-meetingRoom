@@ -46,7 +46,7 @@ const CreateBooking = ({
                     booking.room_id === selectedRoom.id &&
                     booking.date === selectedDate
             );
-            console.log(bookedForRoomAndDate); // Debugging the booked slots for the selected room and date
+            // console.log(bookedForRoomAndDate); // Debugging the booked slots for the selected room and date
 
             // Disable slots that are already booked
             const bookedSlotIds = new Set(
@@ -59,7 +59,7 @@ const CreateBooking = ({
             );
 
             setDisabledSlots(bookedSlotIds); // Update the state with the booked slot IDs
-            console.log(bookedSlotIds); // Debugging the Set of disabled slots
+            // console.log(bookedSlotIds); // Debugging the Set of disabled slots
         }
     }, [selectedRoom, selectedDate, bookedSlots]);
 
